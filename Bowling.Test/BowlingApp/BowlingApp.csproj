@@ -35,5 +35,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Round.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BowlingLibrary\BowlingLibrary.csproj">
+      <Project>{b49fef39-f943-4cb5-b0c2-46fbe867fa9d}</Project>
+      <Name>BowlingLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
