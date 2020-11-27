@@ -6,9 +6,14 @@ namespace BowlingLibrary
 {
     public class Round
     {
+        public Round()
+        {
+            Score = 0;
+        }
+
         public void Roll(int pins)
         {
-            //throw new NotImplementedException();
+            Score += pins;
         }
         public int Score { get; set; }
     }
