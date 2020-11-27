@@ -13,9 +13,9 @@ namespace BowlingGameTest
             var game = new Round();
             for (int i = 0; i < 20; i++)
             {
-                Round.Roll(0);
+                game.Roll(0);
             }
-            Assert.AreEqual(0, Round.Score);
+            Assert.AreEqual(0, game.Score);
         }
     }
 }
