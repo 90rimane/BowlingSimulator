@@ -12,7 +12,7 @@ namespace BowlingGameTest
         {
             var game = SetupRound();
 
-            RollPins(game,20,0);
+            RollPins(game, 20, 0);
 
             Assert.AreEqual(0, game.Score);
         }
@@ -49,6 +49,15 @@ namespace BowlingGameTest
 
             Assert.AreEqual(24, game.Score);
         }
+        [TestMethod]
+        public void TestPerfectGames()
+        {
+            var game = SetupRound();
+
+            RollPins(game, 12, 10);
+
+            Assert.AreEqual(300, game.Score);
+        }
 
         private void RollStrike(Round game)
         {
@@ -61,7 +70,7 @@ namespace BowlingGameTest
             game.Roll(5);
         }
 
-        private void RollPins(Round game,int RollsNumber, int HittedPinsPerRoll)
+        private void RollPins(Round game, int RollsNumber, int HittedPinsPerRoll)
         {
             for (int i = 0; i < RollsNumber; i++)
             {
@@ -73,6 +82,5 @@ namespace BowlingGameTest
         {
             return new Round();
         }
-
     }
 }
