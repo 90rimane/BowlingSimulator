@@ -8,13 +8,15 @@ namespace BowlingLibrary
     {
         private List<int> _rolls = new List<int>(21);
         private int _currentRoll = 0;
-        public Round()
+        public Round(string name)
         {
             for (int i = 0; i < 22; i++)
             {
                 _rolls.Add(0);
             }
+            Name = name;
         }
+        public string Name { get; set; }
         public void Roll(int pins)
         {
             _rolls[_currentRoll++] = pins;

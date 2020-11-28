@@ -80,7 +80,7 @@ namespace BowlingGameTest
 
         private Round SetupRound()
         {
-            return new Round();
+            return new Round("");
         }
     }
 }
