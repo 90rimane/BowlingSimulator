@@ -15,7 +15,6 @@ namespace BowlingLibrary
                 _rolls.Add(0);
             }
         }
-
         public void Roll(int pins)
         {
             _rolls[_currentRoll++] = pins;
