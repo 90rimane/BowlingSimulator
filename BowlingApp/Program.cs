@@ -10,6 +10,10 @@ namespace BowlingApp
     {
         static void Main(string[] args)
         {
+            var myGame = new Game();
+            myGame.Run();
+
+            Console.ReadKey(true);
 
         }
         
