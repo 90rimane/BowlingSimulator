@@ -88,8 +88,8 @@ namespace BowlingApp
                     {
                         while (true)
                         {
-                            Console.Write("Frame {0}:", i + 1);
-                            Console.Write("\tBall 1: ");
+                            Console.Write("Frame{0}: ", i + 1);
+                            Console.Write("\tBall1: ");
                             newPins1 = int.Parse(Console.ReadLine());
                             if (newPins1 >= 0 && newPins1 <= 10)
                             {
@@ -112,21 +112,21 @@ namespace BowlingApp
                 {
                     if (i == 9)                       //frame 10, Extra ball
                     {
-                        Console.Write("\t\tBall 2: ");
+                        Console.Write("\t\tBall2: ");
                         int strikeBonus = int.Parse(Console.ReadLine());
                         player.Roll(strikeBonus);
 
-                        Console.Write("\t\tBall 3: ");
+                        Console.Write("\t\tBall3: ");
                         int newPins3 = int.Parse(Console.ReadLine());
                         player.Roll(newPins3);
 
-                        Console.WriteLine("Score {0}:\n" +
+                        Console.WriteLine("Score: {0}\n" +
                     "---------------------------", player.Score);
                     }
                     else
                     {
-                        Console.WriteLine("\t\tBall 2: /");
-                        Console.WriteLine("Score {0}:\n" +
+                        Console.WriteLine("\t\tBall2: /");
+                        Console.WriteLine("Score: {0}\n" +
                             "---------------------------", player.Score);
                     }
                 }
@@ -145,13 +145,13 @@ namespace BowlingApp
                                     {
                                         while (true)
                                         {
-                                            Console.Write("\t\tBall 2: ");
+                                            Console.Write("\t\tBall2: ");
                                             newPins2 = int.Parse(Console.ReadLine());
                                             int totalPins = newPins1 + newPins2;
                                             if (newPins2 <= leftPins && newPins2 >= 0)
                                             {
                                                 player.Roll(newPins2);
-                                                Console.WriteLine("Score {0}:\n" +
+                                                Console.WriteLine("Score: {0}\n" +
                                                                  "---------------------------", player.Score);
                                                 break;
                                             }
@@ -163,7 +163,7 @@ namespace BowlingApp
                                     {
                                         while (true)
                                         {
-                                            Console.Write("\t\tBall 2: ");
+                                            Console.Write("\t\tBall2: ");
                                             newPins2 = int.Parse(Console.ReadLine());
                                             int totalPins = newPins1 + newPins2;
                                             if (newPins2 <= leftPins && newPins2 >= 0)
@@ -171,17 +171,17 @@ namespace BowlingApp
                                                 if (totalPins == 10)
                                                 {
                                                     player.Roll(newPins2);
-                                                    Console.Write("\t\tBall 3: ");
+                                                    Console.Write("\t\tBall3: ");
                                                     int spareBonus = int.Parse(Console.ReadLine());
                                                     player.Roll(spareBonus);
-                                                    Console.WriteLine("Score {0}:\n" +
+                                                    Console.WriteLine("Score: {0}\n" +
                                                                  "---------------------------", player.Score);
                                                     break;
                                                 }
                                                 else
                                                 {
                                                     player.Roll(newPins2);
-                                                    Console.WriteLine("Score {0}:\n" +
+                                                    Console.WriteLine("Score: {0}\n" +
                                                                      "---------------------------", player.Score);
                                                     break;
                                                 }
