@@ -35,6 +35,8 @@ namespace BowlingApp
                     default:
                         {
                             Console.WriteLine("Please choose something in the menu.");
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey(true);
                             break;
                         }
                 }
@@ -50,20 +52,20 @@ namespace BowlingApp
                 {
                     while (true)
                     {
-                    int playerNumber = Convert.ToInt32(Console.ReadLine());
+                        int playerNumber = Convert.ToInt32(Console.ReadLine());
                         if (playerNumber > 0 && playerNumber < 5)
                         {
                             for (int i = 0; i < playerNumber; i++)
                             {
                                 Console.Clear();
-                                Console.Write("Enter player{0} name:", i + 1);
+                                Console.Write("Player{0}, Enter name:", i + 1);
                                 newName = Console.ReadLine();
                                 Play();
-                                
                             }
+                                Run();
                         }
                         else
-                            Console.WriteLine("Enter between 1 and 4:");
+                            Console.WriteLine("Enter between 1-4:");
                     }
                 }
                 catch (Exception)
@@ -74,7 +76,6 @@ namespace BowlingApp
         }
         public void Play()
         {
-
             Console.Clear();
             Round player = new Round(newName);
             Console.WriteLine("\tHello {0}\n", player.Name);
@@ -97,7 +98,7 @@ namespace BowlingApp
                             }
                             else
                             {
-                                Console.WriteLine("Enter count of falled down pins.(1 to 10)");
+                                Console.WriteLine("Enter number of hitted pins.(1 to 10)");
                             }
                         }
                         break;
@@ -107,7 +108,6 @@ namespace BowlingApp
                         Console.WriteLine("Enter just number:");
                     }
                 }
-
                 if (newPins1 == 10)
                 {
                     if (i == 9)                       //frame 10, Extra ball
@@ -129,10 +129,8 @@ namespace BowlingApp
                         Console.WriteLine("Score {0}:\n" +
                             "---------------------------", player.Score);
                     }
-
                 }
-
-                else
+                else                     // (!newPins1 == 10)
                 {
                     while (true)
                     {
@@ -143,45 +141,62 @@ namespace BowlingApp
                             {
                                 try
                                 {
-                                    Console.Write("\t\tBall 2: ");
-                                    newPins2 = int.Parse(Console.ReadLine());
-                                    int totalPins = newPins1 + newPins2;
-
-                                    if (newPins2 <= leftPins && newPins2 >= 0)
+                                    if (i < 9)
                                     {
-                                        if (i < 9)
+                                        while (true)
                                         {
-                                            player.Roll(newPins2);
-                                            Console.WriteLine("Score {0}:\n" +
-                                                             "---------------------------", player.Score);
-                                            break;
+                                            Console.Write("\t\tBall 2: ");
+                                            newPins2 = int.Parse(Console.ReadLine());
+                                            int totalPins = newPins1 + newPins2;
+                                            if (newPins2 <= leftPins && newPins2 >= 0)
+                                            {
+                                                player.Roll(newPins2);
+                                                Console.WriteLine("Score {0}:\n" +
+                                                                 "---------------------------", player.Score);
+                                                break;
+                                            }
+                                            else
+                                            { Console.WriteLine("Only {0} pins left.", leftPins); }
                                         }
                                     }
-                                    else
-                                    { Console.WriteLine("Only {0} pins left.", leftPins); }
-
-                                    if (i == 9 && newPins2 <= leftPins && newPins2 >= 0)  //frame10 Sparebonus
+                                    else if (i == 9)                             //frame10 Sparebonus
                                     {
-                                        if (i == 9 && totalPins == 10)
+                                        while (true)
                                         {
-                                            player.Roll(newPins2);
-                                            Console.Write("\t\tBall 3: ");
-                                            int spareBonus = int.Parse(Console.ReadLine());
-                                            player.Roll(spareBonus);
-                                            Console.WriteLine("Score {0}:\n" +
-                                                         "---------------------------", player.Score);
-                                            break;
+                                            Console.Write("\t\tBall 2: ");
+                                            newPins2 = int.Parse(Console.ReadLine());
+                                            int totalPins = newPins1 + newPins2;
+                                            if (newPins2 <= leftPins && newPins2 >= 0)
+                                            {
+                                                if (totalPins == 10)
+                                                {
+                                                    player.Roll(newPins2);
+                                                    Console.Write("\t\tBall 3: ");
+                                                    int spareBonus = int.Parse(Console.ReadLine());
+                                                    player.Roll(spareBonus);
+                                                    Console.WriteLine("Score {0}:\n" +
+                                                                 "---------------------------", player.Score);
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    player.Roll(newPins2);
+                                                    Console.WriteLine("Score {0}:\n" +
+                                                                     "---------------------------", player.Score);
+                                                    break;
+                                                }
+                                            }
+                                            else
+                                            { Console.WriteLine("Only {0} pins left.", leftPins); }
                                         }
                                     }
+                                    break;
                                 }
                                 catch (Exception)
                                 {
-
                                     Console.WriteLine("Enter a integer...");
                                 }
-
                             }
-
                             break;
                         }
                         catch (Exception)
@@ -189,7 +204,6 @@ namespace BowlingApp
                             Console.WriteLine("Enter just number:");
                         }
                     }
-
                 }
             }
             Console.WriteLine("You are done, Good Job!");
