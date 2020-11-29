@@ -12,6 +12,7 @@ namespace BowlingApp
         {
             var myGame = new Game();
             myGame.Run();
+            
 
         }
         
