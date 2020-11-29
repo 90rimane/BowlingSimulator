@@ -7,8 +7,9 @@ using BowlingLibrary;
 
 namespace BowlingApp
 {
-    class Game
+    public class Game
     {
+        readonly Round[] persons = new Round[4];
         public string newName;
         public void Run()
         {
@@ -18,6 +19,7 @@ namespace BowlingApp
                 Console.WriteLine("\t****Welcome to Bowling-Simulator****");
                 Console.WriteLine("\nEnter a command:\n" +
                                    "[P] Play\n" +
+                                   "[L] List Scores\n" +
                                    "[E] Exit");
                 ConsoleKeyInfo inputUser = Console.ReadKey(true);
                 switch (inputUser.Key)
@@ -25,6 +27,11 @@ namespace BowlingApp
                     case ConsoleKey.P:
                         {
                             PreparePlay();
+                            break;
+                        }
+                    case ConsoleKey.L:
+                        {
+                            ListPlayerAndScores();
                             break;
                         }
                     case ConsoleKey.E:
@@ -61,18 +68,35 @@ namespace BowlingApp
                                 Console.Write("Player{0}, Enter name:", i + 1);
                                 newName = Console.ReadLine();
                                 Play();
+                                for (int j = 0; j < persons.Length - 1; j++)
+                                {
+
+                                    if (persons[j] == null)
+                                    {
+                                        persons[j] = new Round(newName);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        continue;  //Framgångsrik input
+                                    }
+                                }
                             }
                                 Run();
+                            break;
                         }
                         else
                             Console.WriteLine("Enter between 1-4:");
                     }
+                    break;
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Please enter integer:");
                 }
             }
+            
+
         }
         public void Play()
         {
@@ -121,13 +145,13 @@ namespace BowlingApp
                         player.Roll(newPins3);
 
                         Console.WriteLine("Score: {0}\n" +
-                    "---------------------------", player.Score);
+                    "--------------------------", player.Score);
                     }
                     else
                     {
                         Console.WriteLine("\t\tBall2: /");
                         Console.WriteLine("Score: {0}\n" +
-                            "---------------------------", player.Score);
+                            "--------------------------", player.Score);
                     }
                 }
                 else                     // (!newPins1 == 10)
@@ -152,7 +176,7 @@ namespace BowlingApp
                                             {
                                                 player.Roll(newPins2);
                                                 Console.WriteLine("Score: {0}\n" +
-                                                                 "---------------------------", player.Score);
+                                                                 "--------------------------", player.Score);
                                                 break;
                                             }
                                             else
@@ -175,7 +199,7 @@ namespace BowlingApp
                                                     int spareBonus = int.Parse(Console.ReadLine());
                                                     player.Roll(spareBonus);
                                                     Console.WriteLine("Score: {0}\n" +
-                                                                 "---------------------------", player.Score);
+                                                                 "--------------------------", player.Score);
                                                     break;
                                                 }
                                                 else
@@ -206,9 +230,30 @@ namespace BowlingApp
                     }
                 }
             }
+            
             Console.WriteLine("You are done, Good Job!");
             Console.WriteLine("Enter any key to continue...");
             Console.ReadKey();
+        }
+        public void ListPlayerAndScores()
+        {
+            Console.Clear();
+            Console.WriteLine("\tPlayer Scores:\n");
+            int personsNumber = 0;
+            foreach(Round person in persons)
+            {
+                personsNumber++;
+                if (person == null)
+                {
+                    Console.WriteLine("Player{0}: \tNo player played.", personsNumber);
+                }
+                else
+                {
+                    Console.WriteLine("Player{0}, \t{1}: Score:{2}",personsNumber,person.Name,person.Score);
+                }
+            }
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey(true);
         }
     }
 }
