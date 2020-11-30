@@ -10,7 +10,9 @@ namespace BowlingApp
     public class Game
     {
         readonly Round[] persons = new Round[4];
+        public int totalScore = 0;
         public string newName;
+        public int score = 0;
         public void Run()
         {
             // Main menu
@@ -18,10 +20,10 @@ namespace BowlingApp
             {
                 Console.Clear();
                 Console.WriteLine("\t****Welcome to Bowling-Simulator****");
-                Console.WriteLine("\nEnter a command:\n" +
-                                   "[P] Play\n" +
-                                   "[L] List Scores\n" +
-                                   "[E] Exit");
+                Console.WriteLine("\nEnter a command:\n\n" +
+                                   " [P] Play\n" +
+                                   " [L] List Scores\n" +
+                                   " [E] Exit");
                 ConsoleKeyInfo inputUser = Console.ReadKey(true);
                 switch (inputUser.Key)
                 {
@@ -77,7 +79,7 @@ namespace BowlingApp
 
                                     if (persons[j] == null)
                                     {
-                                        persons[j] = new Round(newName);
+                                        persons[j] = new Round(newName);                               ///
                                         
 
                                         break;
@@ -89,12 +91,12 @@ namespace BowlingApp
                                 }
                             }
                                 Run();
-                            break;
+                            //break;
                         }
                         else
                             Console.WriteLine("Enter between 1-4:");
                     }
-                    break;
+                    //break;
                 }
                 catch (Exception)
                 {
@@ -108,7 +110,7 @@ namespace BowlingApp
         private void Play()
         {
             Console.Clear();
-            Round player = new Round(newName);
+            Round player = new Round(newName);                                         ///
             Console.WriteLine("\tHello {0}\n", player.Name);
             for (int i = 0; i < 10; i++)
             {
@@ -161,7 +163,7 @@ namespace BowlingApp
                             "--------------------------", player.Score);
                     }
                 }
-                else                     // (!newPins1 == 10)
+                else                         // (!newPins1 == 10)
                 {
                     //Second ball hitting
                     while (true)
@@ -237,9 +239,23 @@ namespace BowlingApp
                         }
                     }
                 }
-                
             }
-            
+                int totalScore = player.Score;
+                Console.WriteLine("Total Score: {0}\n",totalScore);
+
+            //for (int j = 0; j < persons.Length; j++)
+            //{
+            //    if (persons[j] == null)
+            //    {
+            //        persons[j] = new Round(totalScore) ;                               ///
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        continue;
+            //    }
+            //}
+
             Console.WriteLine("You are done, Good Job!");
             Console.WriteLine("Enter any key to continue...");
             Console.ReadKey();
@@ -248,7 +264,6 @@ namespace BowlingApp
         private void ListPlayerAndScores()
         {
             Console.Clear();
-            Round player = new Round(newName);
             Console.WriteLine("\tPlayer Scores:\n");
             int personsNumber = 0;
             foreach(Round person in persons)
@@ -260,7 +275,7 @@ namespace BowlingApp
                 }
                 else
                 {
-                    Console.WriteLine("Player{0}: \t{1}'s Score:{2}",personsNumber,person.Name,player.Score);
+                    Console.WriteLine("Player{0}: \t{1}'s Score:{2}",personsNumber,person.Name,totalScore);
                 }
             }
             Console.WriteLine("\nPress any key to continue...");

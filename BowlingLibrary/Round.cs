@@ -8,6 +8,7 @@ namespace BowlingLibrary
     {
         private List<int> _rolls = new List<int>(21);
         private int _currentRoll = 0;
+        private int _score;
         public Round(string name)
         {
             for (int i = 0; i < 22; i++)
@@ -15,6 +16,11 @@ namespace BowlingLibrary
                 _rolls.Add(0);
             }
             Name = name;
+        }
+        public Round(int totalScore)
+        {
+            
+            Score = totalScore;
         }
         public string Name { get; set; }
         public void Roll(int pins)
@@ -47,6 +53,7 @@ namespace BowlingLibrary
                 }
                 return score;
             }
+            set { _score = value; }
         }
 
         private int NormalFrameBonus(int frameIndex)
