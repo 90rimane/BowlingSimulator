@@ -13,6 +13,7 @@ namespace BowlingApp
         public string newName;
         public void Run()
         {
+            // Main menu
             while (true)
             {
                 Console.Clear();
@@ -49,7 +50,8 @@ namespace BowlingApp
                 }
             }
         }
-        public void PreparePlay()
+        //get player information
+        private void PreparePlay()
         {
             while (true)
             {
@@ -67,18 +69,22 @@ namespace BowlingApp
                                 Console.Clear();
                                 Console.Write("Player{0}, Enter name:", i + 1);
                                 newName = Console.ReadLine();
+
                                 Play();
-                                for (int j = 0; j < persons.Length - 1; j++)
+
+                                for (int j = 0; j < persons.Length; j++)
                                 {
 
                                     if (persons[j] == null)
                                     {
                                         persons[j] = new Round(newName);
+                                        
+
                                         break;
                                     }
                                     else
                                     {
-                                        continue;  //Framgångsrik input
+                                        continue;  
                                     }
                                 }
                             }
@@ -98,14 +104,15 @@ namespace BowlingApp
             
 
         }
-        public void Play()
+        //play game
+        private void Play()
         {
             Console.Clear();
             Round player = new Round(newName);
             Console.WriteLine("\tHello {0}\n", player.Name);
             for (int i = 0; i < 10; i++)
             {
-                int newPins1, newPins2;
+                int newPins1, newPins2;         //first ball and second ball hitting
                 while (true)
                 {
                     try
@@ -134,7 +141,7 @@ namespace BowlingApp
                 }
                 if (newPins1 == 10)
                 {
-                    if (i == 9)                       //frame 10, Extra ball
+                    if (i == 9)                            //frame 10, Extra ball
                     {
                         Console.Write("\t\tBall2: ");
                         int strikeBonus = int.Parse(Console.ReadLine());
@@ -156,6 +163,7 @@ namespace BowlingApp
                 }
                 else                     // (!newPins1 == 10)
                 {
+                    //Second ball hitting
                     while (true)
                     {
                         int leftPins = 10 - newPins1;
@@ -229,15 +237,18 @@ namespace BowlingApp
                         }
                     }
                 }
+                
             }
             
             Console.WriteLine("You are done, Good Job!");
             Console.WriteLine("Enter any key to continue...");
             Console.ReadKey();
         }
-        public void ListPlayerAndScores()
+        //List player
+        private void ListPlayerAndScores()
         {
             Console.Clear();
+            Round player = new Round(newName);
             Console.WriteLine("\tPlayer Scores:\n");
             int personsNumber = 0;
             foreach(Round person in persons)
@@ -249,7 +260,7 @@ namespace BowlingApp
                 }
                 else
                 {
-                    Console.WriteLine("Player{0}, \t{1}: Score:{2}",personsNumber,person.Name,person.Score);
+                    Console.WriteLine("Player{0}: \t{1}'s Score:{2}",personsNumber,person.Name,player.Score);
                 }
             }
             Console.WriteLine("\nPress any key to continue...");
