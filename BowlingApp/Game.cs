@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BowlingLibrary;
 
 namespace BowlingApp
 {
     public class Game
     {
-        readonly Round[] persons = new Round[4];
-        public int totalScore = 0;
+        readonly People[] persons = new People[4];
+        public int totalScore = 10;
         public string newName;
-        public int score = 0;
         public void Run()
         {
             // Main menu
@@ -52,7 +47,7 @@ namespace BowlingApp
                 }
             }
         }
-        //get player information
+        //Get player information
         private void PreparePlay()
         {
             while (true)
@@ -73,45 +68,28 @@ namespace BowlingApp
                                 newName = Console.ReadLine();
 
                                 Play();
-
-                                for (int j = 0; j < persons.Length; j++)
-                                {
-
-                                    if (persons[j] == null)
-                                    {
-                                        persons[j] = new Round(newName);                               ///
-                                        
-
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        continue;  
-                                    }
-                                }
                             }
-                                Run();
-                            //break;
+                            break;
                         }
                         else
                             Console.WriteLine("Enter between 1-4:");
                     }
-                    //break;
+                    break;
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Please enter integer:");
                 }
             }
-            
-
+            Run();
         }
-        //play game
+        //Play game
         private void Play()
         {
             Console.Clear();
-            Round player = new Round(newName);                                         ///
-            Console.WriteLine("\tHello {0}\n", player.Name);
+            Round player = new Round();
+            People people = new People(newName,totalScore);      //totalScore= 0
+            Console.WriteLine("\tHello {0}\n",people.Name);
             for (int i = 0; i < 10; i++)
             {
                 int newPins1, newPins2;         //first ball and second ball hitting
@@ -240,21 +218,21 @@ namespace BowlingApp
                     }
                 }
             }
-                int totalScore = player.Score;
+                totalScore = player.Score;
                 Console.WriteLine("Total Score: {0}\n",totalScore);
 
-            //for (int j = 0; j < persons.Length; j++)
-            //{
-            //    if (persons[j] == null)
-            //    {
-            //        persons[j] = new Round(totalScore) ;                               ///
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        continue;
-            //    }
-            //}
+            for (int j = 0; j < persons.Length; j++)
+            {
+                if (persons[j] == null)
+                {
+                    persons[j] = new People(newName,totalScore);                               ///
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
 
             Console.WriteLine("You are done, Good Job!");
             Console.WriteLine("Enter any key to continue...");
@@ -266,7 +244,7 @@ namespace BowlingApp
             Console.Clear();
             Console.WriteLine("\tPlayer Scores:\n");
             int personsNumber = 0;
-            foreach(Round person in persons)
+            foreach(People person in persons)
             {
                 personsNumber++;
                 if (person == null)
@@ -275,7 +253,7 @@ namespace BowlingApp
                 }
                 else
                 {
-                    Console.WriteLine("Player{0}: \t{1}'s Score:{2}",personsNumber,person.Name,totalScore);
+                    Console.WriteLine("Player{0}: \t{1}'s Score:{2}",personsNumber,person.Name,person.TotalScore);
                 }
             }
             Console.WriteLine("\nPress any key to continue...");
