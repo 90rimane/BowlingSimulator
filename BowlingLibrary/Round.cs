@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BowlingLibrary
 {
@@ -8,21 +7,13 @@ namespace BowlingLibrary
     {
         private List<int> _rolls = new List<int>(21);
         private int _currentRoll = 0;
-        private int _score;
-        public Round(string name)
+        public Round()
         {
             for (int i = 0; i < 22; i++)
             {
                 _rolls.Add(0);
             }
-            Name = name;
         }
-        public Round(int totalScore)
-        {
-            
-            Score = totalScore;
-        }
-        public string Name { get; set; }
         public void Roll(int pins)
         {
             _rolls[_currentRoll++] = pins;
@@ -53,7 +44,7 @@ namespace BowlingLibrary
                 }
                 return score;
             }
-            set { _score = value; }
+
         }
 
         private int NormalFrameBonus(int frameIndex)
