@@ -47,7 +47,7 @@ namespace BowlingApp
                 }
             }
         }
-        //Get player information
+        //Get player Name
         private void PreparePlay()
         {
             while (true)
@@ -225,7 +225,7 @@ namespace BowlingApp
             {
                 if (persons[j] == null)
                 {
-                    persons[j] = new People(newName,totalScore);                               ///
+                    persons[j] = new People(newName,totalScore);                               
                     break;
                 }
                 else
