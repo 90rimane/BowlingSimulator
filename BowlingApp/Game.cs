@@ -35,6 +35,8 @@ namespace BowlingApp
                                 PlayGame(count);
                                 count++;
                             }
+                            Console.WriteLine("god job! You are done.\n");
+                            CalculateScore();
                             Helper.PressAnyKeyToContinue();
                             break;
                         }
@@ -99,7 +101,7 @@ namespace BowlingApp
             {
                 if (Players.Count > 3)
                 {
-                    Console.WriteLine("Maximum players is 4. Returning to menu.");
+                    Console.WriteLine("Maximum players is 4.");
                     Helper.PressAnyKeyToContinue();
                     return;
                 }
@@ -170,7 +172,6 @@ namespace BowlingApp
 
                     if (tmpArr[9].SpareOrStrike == 'X')
                     {
-                        
                         Console.WriteLine($"Frame{count + 1}\tPlayer {Player.Name}\t Extra Ball");
                         ball1 = Helper.VerifyInt(Console.ReadLine());
                         while (ball1 < 0 || ball1 > 10)
@@ -215,6 +216,7 @@ namespace BowlingApp
                 }
                 else
                 {
+
                     Console.WriteLine($"Frame{count + 1}\tPlayer {Player.Name}\t");
                     Console.Write("\tBall1: ");
                     ball1 = Helper.VerifyInt(Console.ReadLine());
