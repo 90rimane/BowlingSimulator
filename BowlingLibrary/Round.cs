@@ -5,72 +5,60 @@ namespace BowlingLibrary
 {
     public class Round
     {
-        private List<int> _rolls = new List<int>(21);
-        private int _currentRoll = 0;
-        public Round()
+        public int Roll(int ball1, int ball2, People player)
         {
-            for (int i = 0; i < 22; i++)
+            int totalPins = ball1 + ball2;
+            if (totalPins > 10 || totalPins < 0 || ball1 < 0 || ball1 > 10 || ball2 < 0 || ball2 > 10)
+                throw new ArgumentException();
+
+            int tmpFramePoint = totalPins;
+            if (ball1 == 10)
             {
-                _rolls.Add(0);
+                player.FrameScores.Add(
+                    new Scores(ball1, ball2, tmpFramePoint, 'X')
+                    );
             }
-        }
-        public void Roll(int pins)
-        {
-            _rolls[_currentRoll++] = pins;
-        }
-        public int Score
-        {
-            get
+            else if (ball1 + ball2 == 10)
             {
-                int score = 0;
-                int frameIndex = 0;
-                for (int frame = 0; frame < 10; frame++)
+                player.FrameScores.Add(
+                    new Scores(ball1, ball2, tmpFramePoint, '/')
+                    );
+            }
+            else
+            {
+                player.FrameScores.Add(
+                    new Scores(ball1, ball2, tmpFramePoint, '0')
+                    );
+            }
+
+            return tmpFramePoint;
+        }
+        public int Score(People player)
+        {
+            int totalScore = 0;
+            int framePoint = 0;
+            for (int i = 0; i < player.FrameScores.Count; i++)
+            {
+                if (i < 10)
                 {
-                    if (IsStrike(frameIndex))
+                    framePoint = player.FrameScores[i].Score;
+                    if (player.FrameScores[i].SpareOrStrike == 'X')
                     {
-                        score += 10 + StrikeBonus(frameIndex);
-                        frameIndex++;
+                        framePoint += player.FrameScores[i + 1].Ball2;
+                        if (player.FrameScores[i + 1].SpareOrStrike == 'X')
+                            framePoint += player.FrameScores[i + 2].Ball1;
+                        else
+                            framePoint += player.FrameScores[i + 1].Ball2;
                     }
-                    else if (IsSpare(frameIndex))
+                    else if (player.FrameScores[i].SpareOrStrike == '/')
                     {
-                        score += 10 + SpareBonus(frameIndex);
-                        frameIndex += 2;
+                        framePoint += player.FrameScores[i + 1].Ball1;
                     }
-                    else
-                    {
-                        score += NormalFrameBonus(frameIndex);
-                        frameIndex += 2;
-                    }
+                    totalScore += framePoint;
                 }
-                return score;
             }
-
-        }
-
-        private int NormalFrameBonus(int frameIndex)
-        {
-            return _rolls[frameIndex] + _rolls[frameIndex + 1];
-        }
-
-        private int SpareBonus(int frameIndex)
-        {
-            return _rolls[frameIndex + 2];
-        }
-
-        private int StrikeBonus(int frameIndex)
-        {
-            return _rolls[frameIndex + 1] + _rolls[frameIndex + 2];
-        }
-
-        private bool IsStrike(int frameIndex)
-        {
-            return _rolls[frameIndex] == 10;
-
-        }
-
-        private bool IsSpare(int frameIndex)
-        {
-            return _rolls[frameIndex] + _rolls[frameIndex + 1] == 10;
+            player.TotalScores = totalScore;
+            return totalScore;
         }
     }
 }
